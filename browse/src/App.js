@@ -1,11 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
-
+import Main from './Main.js';
 function App() {
   return (
-    <div className="App">
-      
-      <p className='text-7xl text-center text-green-200'>Hello world</p>
+    <div className='bg-gray-50'>
+      <Main/>
     </div>
   );
 }
