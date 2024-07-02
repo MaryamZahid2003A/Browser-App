@@ -3,7 +3,8 @@ import NavBar from './NavBar.js';
 import './App.css';
 import logo from './logo.svg';
 import Components from './Components.js';
-function Main() {
+import Browse from './Browse.js';
+function Main(props) {
   return (
     <>
 
@@ -18,7 +19,11 @@ function Main() {
       <p className='text-white text-center  text-lg pt-5 sm:text-2xl  lg:text-4xl mt-10'>Become a <span className='text-cyan-400'>React Dev</span></p>
       <p className='text-white text-center text- pt-5 sm:text-xl lg:text-3xl'>Find the React job that fits your skill set</p>
         <div className="react">
-            <Components/>
+            <Components list={props.list}/>
+        </div>
+        <div className="Browse-jobs">
+                <p className='text-5xl text-center text-slate-800 pt-5 '>Browse <span className='text-cyan-600'>Jobs</span></p>
+                <Browse list={props.list}/>
         </div>
     </div>
      </>
