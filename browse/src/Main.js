@@ -4,6 +4,7 @@ import './App.css';
 import logo from './logo.svg';
 import Components from './Components.js';
 import Browse from './Browse.js';
+import ProductList from './ProductList.js';
 function Main(props) {
   return (
     <>
@@ -23,7 +24,7 @@ function Main(props) {
         </div>
         <div className="Browse-jobs">
                 <p className='text-5xl text-center text-slate-800 pt-5 '>Browse <span className='text-cyan-600'>Jobs</span></p>
-                <Browse list={props.list}/>
+                <div ><ProductList list={props.list}/></div>
         </div>
     </div>
      </>
