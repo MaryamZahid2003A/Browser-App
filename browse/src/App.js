@@ -4,6 +4,7 @@ import Main from './Main.js';
 import NavBar from './NavBar.js';
 import ProductList from './ProductList.js';
 import ReadMore from './ReadMore.js';
+import Addjob from './Addjob.js';
 import { Route,Routes,BrowserRouter as Router } from 'react-router-dom';
 function App() {
   const list=[
@@ -100,6 +101,8 @@ function App() {
         
         <Route path="/ProductsLists" element={<ProductList list={list}/>} />
         <Route path="/ReadMore/:id" element={<ReadMore list={list} />} />
+        <Route path="/Addjob" element={<Addjob list={list} />} />
+
       </Routes>
     
     

@@ -16,9 +16,11 @@ export default function Components(props) {
       <div className='bg-slate-300 h-56 w-96 rounded-lg mt-20 ml-40 mr-40'>
         <h1 className='font-bold text-2xl pt-10 pl-8'>For Employers</h1>
         <p className='pl-8 mt-2 text-black'>Let your job to find the developer for the role.</p>
+        <Link to="/Addjob">
         <button className='ml-8 mt-4 transition-all delay-150 duration-300 ease-in-out cursor-pointer text-white w-28 h-12 rounded-xl bg-slate-500 hover:text-slate-800 hover:bg-white'>
           Add Job
         </button>
+        </Link>
       </div>
     </div>
   );

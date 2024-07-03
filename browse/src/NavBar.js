@@ -9,7 +9,9 @@ export default function NavBar() {
           </li></Link>
       
         <li className='border-b pl-5  border-slate-800 hover:border-b-2 hover:border-white hover:text-white transition-all delay-150 duration-300 ease-in-out cursor-pointer'>Jobs</li>
+       <Link to="/Addjob">
         <li className='border-b pl-5  pr-10 border-slate-800 hover:border-b-2 hover:border-white hover:text-white transition-all delay-150 duration-300 ease-in-out cursor-pointer'>Add Job</li>
+        </Link>
       </ul>
     </div>
   )
