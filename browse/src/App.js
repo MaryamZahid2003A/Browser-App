@@ -1,6 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
 import Main from './Main.js';
+import NavBar from './NavBar.js';
+import ProductList from './ProductList.js';
+import ReadMore from './ReadMore.js';
+import { Route,Routes,BrowserRouter as Router } from 'react-router-dom';
 function App() {
   const list=[
     {
@@ -89,9 +93,16 @@ function App() {
     }
   ]
   return (
-    <div className='bg-gray-50'>
-      <Main list={list}/>
-    </div>
+    
+      <Routes>
+        <Route path="/" element={<Main list={list} />} />
+        <Route path="/NavBar" element={<NavBar  />} />
+        
+        <Route path="/ProductsLists" element={<ProductList list={list}/>} />
+        <Route path="/ReadMore/:id" element={<ReadMore list={list} />} />
+      </Routes>
+    
+    
   );
 }
 
