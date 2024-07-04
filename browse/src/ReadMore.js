@@ -1,12 +1,14 @@
 import NavBar from './NavBar';
 import React, { useState } from 'react';
 import { FaMapMarker } from 'react-icons/fa';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams,useNavigate } from 'react-router-dom';
 import './App.css';
 import logo from './logo.svg';
 import { FaArrowLeft } from 'react-icons/fa';
+import deleteJob from './deleteJob';
+import Addjob from './Addjob';
 
-export default function ReadMore({ list }) {
+export default function ReadMore({ list,deleteJob },props) {
   const { id } = useParams();
   const product = list.find((item) => item.id.toString() === id);
 
@@ -21,23 +23,30 @@ export default function ReadMore({ list }) {
     return bool ? <p>{description}</p> : <p>{description.substring(0, 90)} ...</p>;
   };
 
-  if (!product) {
-    return <div>Product not found</div>;
-  }
+   
 
+  if (!product) {
+    return <div className='mt-20'>
+      <h1 className='text-center text-3xl text-white '>404 page Error !</h1>
+            <p  className='text-center text-4xl text-white '> Not Found! </p>
+            <Link to='/'>
+          <button   className='w-40 h-16 bg-cyan-600 mb-10 mt-6 text-white text-center rounded-lg hover:text-white hover:bg-slate-800 transition-all delay-150 duration-300 ease-in-out cursor-pointer'>
+              Back To Home Page
+            </button>
+            </Link>
+    </div>;
+  }
+ 
   return (
     <>
-      <div>
-        <div className='flex'>
-            <img src={logo} className="App-logo" alt="logo" />
-            <div>
-                <p className='text-slate-100 text-5xl pl-10 sm:pl-4 md:text-4xl lg:text-5xl'>
-                React <span className='text-cyan-400'>JS</span>
-                </p>
-            </div>
-            </div>
-            <NavBar />
+      <NavBar />
+      <div className='flex '>
+        <img src={logo} className="App-logo" alt="logo" />
+        <div>
+          <p className='text-white text-5xl pl-10 sm:pl-4 md:text-4xl lg:text-5xl'>React <span className='text-cyan-400'>JS</span></p>
         </div>
+      </div>
+      
         <div className='bg-white text-indigo-500 hover:text-indigo-800 h-16 w-screen mt-10'>
             <Link to="/">
             <div className='flex items-center pt-4'>
@@ -46,8 +55,8 @@ export default function ReadMore({ list }) {
             </div>
             </Link>
         </div>
-      <div className='flex flex-wrap sm:flex-nowrap pt-10 px-10 gap-6'>
-            <div className='flex-1 bg-white rounded-xl shadow-3xl p-6 w-60'>
+      <div className='lg:flex  md:flex pt-10 px-10 gap-6'>
+            <div className='flex-1 bg-white rounded-xl shadow-3xl p-6 mb-5 lg:w-60 lg:h-96'>
                 <div className='mb-6'>
                     <div className='text-gray-600 my-2'>{product.type}</div>
                     <h3 className='text-3xl font-bold text-black'>{product.title}</h3>
@@ -62,7 +71,7 @@ export default function ReadMore({ list }) {
             <p className='my-2 text-indigo-600 text-md'>Salary</p>
             <div className='text-orange-700 text-md pb-7'>{product.salary}</div>
             </div>
-            <aside className='flex-1 bg-white p-6 rounded-lg shadow-md w-30'>
+            <aside className='flex-1 bg-white p-6 rounded-lg shadow-md sm:pt-8'>
             <div>
                 <h3 className='text-xl font-bold mb-6'>Company Info</h3>
                 <h2 className='text-2xl'>{product.company.name}</h2>
@@ -80,16 +89,18 @@ export default function ReadMore({ list }) {
             <div className='mt-6'>
                 <h3 className='text-xl font-bold mb-6'>Manage Job</h3>
                 <Link
-                to={`/edit-job/${product.id}`}
+                to="/AddJob"
                 className='bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block'
+                onClick={()=>props.handleEditSubmit(product)}
                 >
                 Edit Job
+                
                 </Link>
-                <button
+                <button 
                 className='bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block'
-                >
-                Delete Job
-                </button>
+                onClick={()=>deleteJob(id)}
+                >Delete Job</button>
+                
             </div>
             </aside>
       </div>
