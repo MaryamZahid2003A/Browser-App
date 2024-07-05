@@ -106,6 +106,7 @@ function App() {
       ]);
     }
   }, []);
+  const [editIndex, setEditIndex] = useState(null);
   const [bool,setBool]=useState(false);
   const deleteJob=(JobId)=>{
     const confirm =window.confirm('Are You Sure You Want To Delete Job In List')
@@ -130,35 +131,23 @@ function App() {
   const [contactEmail,setContactEmail]=useState('');
   const [contactPhone,setContactPhone]=useState('');
   
-
-
-
-  const [edittype,seteidtType]=useState('Full-Time');
-  const [edittitle,seteditTitle]=useState('');
-  const [editdescription,setEditDescription]=useState('');
-  const [editsalary,seteditSalary]=useState('under $50k');
-  const [editlocation,seteditLocation]=useState('');
-  const [editcompanyName,seteditCompanyName]=useState('');
-  const [editcompanyDescription,seteditCompanyDesription]=useState('');
-  const [editcontactEmail,seteditContactEmail]=useState('');
-  const [editcontactPhone,seteditContactPhone]=useState('');
   // 
   const edit=(product)=>{
-    
+    setEditIndex(product.id);
     setTitle(product.title);
     setType(product.type);
     setLocation(product.location);
     setDescription(product.description);
     setSalary(product.salary);
-    setCompanyName(product.companyName);
-    setCompanyDesription(product.companyDescription);
-    setContactEmail(product.contactEmail);
-    setContactPhone(product.contactPhone);
-  
-    
+    setCompanyName(product.company.name);
+    setCompanyDesription(product.company.description);
+    setContactEmail(product.company.contactEmail);
+    setContactPhone(product.company.contactPhone);  
   }
   const handleSubmit=()=>{
+    
     const newJob={
+      id:editIndex? editIndex : list.length? list[list.length-1].id+1 : 1,
         title,
         type,
         location,
@@ -171,9 +160,9 @@ function App() {
             contactPhone
         }
     }
-    let Newid=list.length? list[list.length-1].id+1 : 1;
-    let NewPost={id:Newid,...newJob}
-    const newList=[...list,NewPost]
+    const newList = editIndex
+      ? list.map((job) => (job.id === editIndex ? newJob : job))
+      : [...list, newJob];
     setList(newList)
     setTitle('');
     setType('');
@@ -184,41 +173,14 @@ function App() {
     setCompanyDesription('');
     setContactEmail('');
     setContactPhone('');
-    toast.success('Job Added Successfully ! ')
+
+    toast.success(editIndex? "Job Updated Succesfully ! ": "Job Added Successfully !")
+  
+  
 }
 
 
 
-const handleEditSubmit=(product)=>{
-  edit(product)
-  const newJob={
-      title:edittitle,
-      type:edittype,
-      location:editlocation,
-      description:editdescription,
-      salary:editsalary,
-      company:{
-          name:editcompanyName,
-          description:editcompanyDescription,
-          contactEmail:editcontactEmail,
-          contactPhone:editcontactPhone
-      }
-  }
-  let id=product.id
-  let NewPost={id,...newJob}
-  const newList=[NewPost]
-  setList(newList)
-  seteditTitle('');
-  seteidtType('');
-  seteditLocation('');
-  setEditDescription('');
-  seteditSalary('');
-  seteditCompanyName('');
-  seteditCompanyDesription('');
-  seteditContactEmail('');
-  seteditContactEmail('');
-  toast.success('Job Updated Successfully ! ')
-}
 
 useEffect(() => {
   localStorage.setItem('list', JSON.stringify(list));
@@ -231,25 +193,8 @@ useEffect(() => {
         <Route path="/NavBar" element={<NavBar  />} />
         
         <Route path="/ProductsLists" element={<ProductList list={list}/>} />
-        <Route path="/ReadMore/:id" element={<ReadMore list={list} deleteJob={deleteJob} bool={bool} 
-         seteidtType={seteidtType}
-         edittitle={edittitle}
-         seteditTitle={seteditTitle}
-         editdescription={editdescription}
-         setEditDescription={setEditDescription}
-         editsalary={editsalary}
-         seteditSalary={seteditSalary}
-         editlocation={editlocation}
-         seteditLocation={seteditLocation}
-         editcompanyName={editcompanyName}
-         seteditCompanyName={seteditCompanyName}
-         editcompanyDescription={editcompanyDescription}
-         seteditCompanyDesription={seteditCompanyDesription}
-         editcontactEmail={editcontactEmail}
-         seteditContactEmail={seteditContactEmail}
-         editcontactPhone={editcontactPhone}
-         seteditContactPhone={seteditContactPhone}
-         handleEditSubmit={handleEditSubmit}
+        <Route path="/ReadMore/:id" element={<ReadMore list={list} deleteJob={deleteJob} bool={bool}  edit={edit}
+         
         />} />
         
         <Route path="/Addjob" element={<Addjob type={type}
@@ -272,24 +217,7 @@ useEffect(() => {
                 setContactPhone={setContactPhone}
                 handleSubmit={handleSubmit}
                 // 
-                seteidtType={seteidtType}
-                edittitle={edittitle}
-                seteditTitle={seteditTitle}
-                editdescription={editdescription}
-                setEditDescription={setEditDescription}
-                editsalary={editsalary}
-                seteditSalary={seteditSalary}
-                editlocation={editlocation}
-                seteditLocation={seteditLocation}
-                editcompanyName={editcompanyName}
-                seteditCompanyName={seteditCompanyName}
-                editcompanyDescription={editcompanyDescription}
-                seteditCompanyDesription={seteditCompanyDesription}
-                editcontactEmail={editcontactEmail}
-                seteditContactEmail={seteditContactEmail}
-                editcontactPhone={editcontactPhone}
-                seteditContactPhone={seteditContactPhone}
-                handleEditSubmit={handleEditSubmit}
+                
         />} />
       
       </Routes>

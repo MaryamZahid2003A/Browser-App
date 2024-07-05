@@ -8,7 +8,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import deleteJob from './deleteJob';
 import Addjob from './Addjob';
 
-export default function ReadMore({ list,deleteJob },props) {
+export default function ReadMore({ list,deleteJob,edit }) {
   const { id } = useParams();
   const product = list.find((item) => item.id.toString() === id);
 
@@ -91,7 +91,7 @@ export default function ReadMore({ list,deleteJob },props) {
                 <Link
                 to="/AddJob"
                 className='bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block'
-                onClick={()=>props.handleEditSubmit(product)}
+                onClick={()=>edit(product)}
                 >
                 Edit Job
                 
